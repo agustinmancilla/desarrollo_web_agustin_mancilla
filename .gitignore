@@ -1,0 +1,9 @@
+# Archivos temporales
+*.pyc
+__pycache__/
+
+# Archivos de VSCode
+.vscode/
+
+# Subidas o contenido pesado
+uploads/
