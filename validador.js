@@ -72,6 +72,11 @@ const validateUnitType = () => {
     return true;
 };
 
+const validatePhotos = () => {
+    let fotosInput = document.getElementById("fotos");
+    return fotosInput && fotosInput.files && fotosInput.files.length > 0;
+};
+
 const validateForm = () => {
     let avisoForm = document.forms["avisoForm"];
     let nombre = avisoForm["nombre"].value;
@@ -124,6 +129,9 @@ const validateForm = () => {
     }   
     if(!validateUnitType()){
         setInvalidInput("Unidad de edad");
+    }
+    if(!validatePhotos()){
+        setInvalidInput("Fotos");
     }   
     let validationBox = document.getElementById("val-box");
     let validationMessageElem = document.getElementById("val-msg");
