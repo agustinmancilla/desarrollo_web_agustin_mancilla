@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Agregar aviso</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="main-container">
+            <div id="val-box" class="valid-box" hidden>
+                <h2 id="val-msg"></h2>
+                <ul id="val-list"></ul>
+            </div>
+            <form name="avisoForm" method="post" class="aviso-form" enctype="multipart/form-data">
+                <div>
+                    <h3 class="titulo-form">¿Dónde?</h3>
+                    <label for="region">Región:</label>
+                    <select name="region" id="region" required>
+                        <option value="">Seleccione una región</option>
+                    </select><br>
+                    
+                    <label for="comuna">Comuna:</label>
+                    <select name="comuna" id="comuna" required>
+                        <option value="">Seleccione una comuna</option>
+                    </select><br>
+                     
+                    <label for="sector" style="display: none;">Sector</label>
+                    <textarea name="sector" id="sector" maxlength="100" style="display: none;"></textarea><br>
+                </div>
+                <div>
+                    <h3 class="titulo-form">¿Contacto de esta publicación?</h3>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" id="nombre" minlength="3" maxlength="200" required><br>
+
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" maxlength="100" required><br>
+
+                    <label for="celular">Número de teléfono:</label>
+                    <input type="tel" name="celular" id="celular" placeholder="+123.12345678"><br>
+
+                    <label for="contacto">Contactar por:</label>
+                    <div>
+                        <input type="checkbox" name="whatsapp" onclick="revisaCheck(this);"> whatsapp
+                        <input id="whatsapp" type="text" name="whatsapp-id" style="display:none;" minlength="4" maxlength="50"> <br>
+                        <input type="checkbox" name="instagram" onclick="revisaCheck(this);"> instagram
+                        <input id="instagram" type="text" name="instagram-id" style="display:none;" minlength="4" maxlength="50"><br>
+                        <input type="checkbox" name="telegram" onclick="revisaCheck(this);"> telegram
+                        <input id="telegram" type="text" name="telegram-id" style="display:none;" minlength="4" maxlength="50"><br>
+                        <input type="checkbox" name="x" onclick="revisaCheck(this);" > X
+                        <input id="x" type="text" name="x-id" style="display:none;" minlength="4" maxlength="50">
+                        <input type="checkbox" name="tiktok" onclick="revisaCheck(this);"> tiktok
+                        <input id="tiktok" type="text" name="tiktok-id" style="display:none;" minlength="4" maxlength="50">
+                        <input type="checkbox" name="otro" onclick="revisaCheck(this);"> otro
+                        <input id="otro" type="text" name="otro-id" style="display:none;" minlength="4" maxlength="50">
+                    </div>
+                </div>
+                <div>
+                    <h3 class="titulo-form">¿Qué mascota ofrece en adopción?</h3>
+                    <div>
+                        <label for="tipo">Tipo de mascota:</label>
+                        <input type="radio" id="perro" name="tipo" value="perro" required>
+                        <label for="perro">Perro</label>
+                        <input type="radio" id="gato" name="tipo" value="gato">
+                        <label for="gato">Gato</label>
+                    </div>
+                    
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" name="cantidad" id="cantidad"  min="1" required><br>
+
+                    <label for="edad">Edad:</label>
+                    <input type="number" name="edad" id="edad" min="1" required><br>    
+
+                    <div>
+                        <label for="unidad">Unidad de medidad de la edad:</label>
+                        <input type="radio" id="meses" name="unidad" value="meses" required>
+                        <label for="meses">Meses</label>
+                        <input type="radio" id="años" name="unidad" value="años">
+                        <label for="años">Años</label><br>
+                    </div>           
+                    
+                    <label for="fecha-entrega">Fecha disponible para entrega:</label>
+                    <input type="datetime-local" name="fecha-entrega" id="fecha-entrega" required><br>
+
+                    <label for="descripcion">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" rows="10" cols="50"></textarea><br>
+                    
+                    <label for="fotos">Fotos:</label>
+                    <div id="foto-container">
+                        <input type="file" name="fotos" id="fotos" accept="image/*" required>
+                    </div>
+                    <button id="agregar-foto" type="button">Agregar otra foto</button>
+                </div>
+                <button id="agregar-btn" class="boton-agregar" type="button">Agregar este aviso de adopción</button>
+            </form>
+        </div>
+        <script src="region_comuna.js"></script>
+        <script src="formulario.js"></script>
+        <script src="validador.js"></script>
+    </body>
