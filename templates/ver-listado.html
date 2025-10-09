@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Listado de adopciones{% endblock %}
+{% block content %}
+    <h1 class="titulo-form">Listado de adopciones</h1>
+    <table class="mi-tabla">
+        <tr>
+            <th>Fecha publicación</th>
+            <th>Fecha entrega</th>
+            <th>Comuna</th>
+            <th>Sector</th>
+            <th>Cantidad Tipo edad</th>
+            <th>Nombre Contacto</th>
+            <th>Total fotos</th>
+        </tr>
+        {% for aviso, comuna_nombre, fotos in avisos %}
+        {% set detalle_url = url_for('informacion_adopcion', aviso_id=aviso.id) %}
+        <tr onclick="window.location.href='{{ detalle_url }}'" style="cursor:pointer;">
+            <td>{{ aviso.fecha_ingreso }}</td>
+            <td>{{ aviso.fecha_entrega }}</td>
+            <td>{{ comuna_nombre }}</td>
+            <td>{{ aviso.sector }}</td>
+            <td>{{ aviso.cantidad}} {{ aviso.tipo }} {{ aviso.edad }} 
+                {% if aviso.unidad_medida == 'a' %}años{% else %}meses{% endif %}</td>
+            <td>{{ aviso.nombre }}</td>
+            <td>{% for foto in fotos %}
+                    <img src="{{ url_for('static', filename=foto.ruta_archivo) }}" alt="{{ foto.nombre_archivo }}" width="200" height="150">
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="paginacion">
+        {% if pagina > 1 %}
+            <a href="{{ url_for('ver_listado', pagina=pagina-1) }}">Anterior</a>
+        {% endif %}
+        {% if (pagina * num) < total %}
+            <a href="{{ url_for('ver_listado', pagina=pagina+1) }}">Siguiente</a>
+        {% endif %}
+    </div>
+    <a class="boton-nav" href="{{ url_for('index') }}">Volver al inicio</a>
+{% endblock %}

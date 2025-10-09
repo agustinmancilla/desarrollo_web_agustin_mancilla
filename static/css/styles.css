@@ -1,0 +1,183 @@
+.mi-tabla {
+    border: 2px solid black; 
+    width: 100% ;
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    padding: 10px; 
+    text-align: center;
+}
+.mi-tabla th {
+    background-color: #f2f2f2;   
+    padding: 10px;
+    border: 1px solid #ccc;     
+}
+.mi-tabla td {
+    border: 1px solid black;    
+    padding: 10px;              
+}
+
+.menu-botones {
+    display: flex;              
+    justify-content: center;    
+    gap: 20px;                  
+    list-style: none;           
+    padding: 0;
+}
+
+.boton-menu {
+    display: flex;
+    text-decoration: none;      
+    background: #5fdfdf;
+    color: rgb(24, 16, 16);
+    border: none;
+    padding: 12px 24px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.boton-agregar {
+    background: #2cbd44; 
+    color: rgb(248, 245, 245);                 
+    border: none;                  
+    padding: 8px 12px;           
+    font-size: 16px;                     
+    border-radius: 4px;            
+    cursor: pointer;               
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2); 
+}
+.boton-rechazar{
+    background: #f22222; 
+    color: rgb(248, 245, 245);                 
+    border: none;                  
+    padding: 8px 12px;           
+    font-size: 16px;                     
+    border-radius: 4px;            
+    cursor: pointer;               
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    
+}
+.aviso-form {
+    background: #f9f9f9;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.titulo-form {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.invalid-box {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 18px;
+    font-family: Arial, sans-serif;
+    border-left: 6px solid #f93636;
+    border-radius: 8px;
+    background: #ffdddd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.ventana {
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    border-radius: 14px;
+    padding: 24px;
+    margin-top: 40px;
+}
+
+.lista-info {
+    list-style: none;
+    padding: 24px 28px;
+    margin: 0 auto 24px auto;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    font-family: Arial, sans-serif;
+    font-size: 1.08em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.lista-info li {
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.boton-nav {
+    display: inline-block;
+    text-decoration: none; 
+    background: #49d2e4;
+    color: #0e0d0d;
+    border: none;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+    transition: background 0.2s;
+}
+
+.estadisticas-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    font-family: Arial, sans-serif;
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+}
+
+.graficos {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    justify-content: center;  
+    margin-bottom: 32px;
+}
+.grafico {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: #f9f9f9;
+    padding: 12px;
+}
+
+.paginacion {
+    margin: 20px 0;
+    text-align: right;
+    width: 100%;
+}
+.paginacion a{
+    display: inline-block;
+    background: #49d2e4;
+    color: #0e0d0d;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 16px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+    transition: background 0.2s;
+}

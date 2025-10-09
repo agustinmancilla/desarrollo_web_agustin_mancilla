@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{%block title %}Información de adopción{% endblock %}
+{% block content %}
+    <div id="info">
+        <h2 class="titulo-form">Información de adopción</h2>
+        <ul class="lista-info">
+            <li>Región: {{ region.nombre }}</li>
+            <li>Comuna: {{ comuna.nombre }}</li>
+            <li>Sector: {{ aviso.sector }}</li>
+            <li>Nombre contacto: {{ aviso.nombre }}</li>
+            <li>Email contacto: {{ aviso.email }}</li>
+            <li>Número de teléfono: {{ aviso.celular }}</li>
+            <li>Contactar por: 
+                {% for contacto in contactos %}
+                    ({{ contacto.nombre }}) {{ contacto.identificador }}
+                {% endfor %}
+            </li>
+            <li>Tipo de mascota: {{ aviso.tipo }}</li>
+            <li>Cantidad: {{ aviso.cantidad }}</li>
+            <li>Edad: {{ aviso.edad }} {% if aviso.unidad_medida == 'a' %}años{% else %}meses{% endif %}</li>
+            <li>Fecha entrega: {{ aviso.fecha_entrega }}</li>
+            <li>Descripción: {{ aviso.descripcion }}</li>
+            <li>
+                <p>Foto:</p>
+                {% for foto in fotos %}
+                    <img class="img-detalle" src="{{ url_for('static', filename=foto.ruta_archivo) }}" alt="{{ foto.nombre_archivo }}" width="320" height="240" id="imagen" style="cursor: pointer;">
+                {% endfor %}
+            </li>
+        </ul>
+        <div style="display: flex; gap: 20px;">
+            <a class="boton-nav" href="{{ url_for('ver_listado') }}">Volver al listado</a>
+            <a class="boton-nav" href="{{ url_for('index') }}">Volver al inicio</a>
+        </div>
+    </div>
+    <div id="ventana-foto" class="ventana" style="display:none; position:fixed; inset:0;  align-items:center; justify-content:center;">
+        <button id="cerrar-vent-btn" type="button" style="position:absolute; top:16px; right:16px; background:#ff5c5c; color:#fff; border:0; border-radius:50%; width:34px; height:34px; font-size:18px; cursor:pointer;">✕</button>
+        <img id="imagen-ampliada" src="" alt="" width="800" height="600">
+    </div>
+{% endblock %}[{% block javascript %}
+    <script src="{{ url_for('static', filename='js/ventana.js') }}"></script>
+{% endblock %}]

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Portada{% endblock %}
+{% block content %}
+    <h1 class="titulo-form">¡Te damos la bienvenida!</h1>
+    <ul class="menu-botones">
+        <li>
+            <a class="boton-menu" href="{{ url_for('agregar_aviso') }}">Agregar aviso de adopción</a>
+        </li>
+        <li>
+            <a class="boton-menu" href="{{ url_for('ver_listado') }}">Ver listado de adopciones</a>
+        </li>
+        <li>
+            <a class="boton-menu" href="{{ url_for('estadisticas') }}">Estadísticas</a>
+        </li>
+    </ul>
+    {% if exito %}
+        <div class="valid-box">{{ exito }}</div>
+    {% endif %}
+
+    <div>
+        <table class="mi-tabla">
+            <tr>
+                <th>Fecha publicación</th>
+                <th>Comuna</th>
+                <th>Sector</th>
+                <th>Cantidad Tipo edad</th>
+                <th>Foto</th>
+            </tr>
+            {% for aviso, comuna_nombre, fotos in avisos %}
+            <tr>
+                <td>{{ aviso.fecha_ingreso }}</td>
+                <td>{{ comuna_nombre }}</td>
+                <td>{{ aviso.sector }}</td>
+                <td>{{ aviso.cantidad}} {{ aviso.tipo }} {{ aviso.edad }} 
+                    {% if aviso.unidad_medida == 'a' %}años{% else %}meses{% endif %}</td>
+                <td>
+                    {% for foto in fotos %}
+                        <img src="{{ url_for('static', filename=foto.ruta_archivo) }}" alt="{{ foto.nombre_archivo }}" width="200" height="150">
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

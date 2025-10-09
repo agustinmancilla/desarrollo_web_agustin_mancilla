@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Estadísticas{% endblock %}
+{% block content %}
+    <div class="estadisticas-container">
+        <h1>Estadísticas de adopciones</h1>
+        <div class="graficos">    
+            <img src="{{ url_for('static', filename='graficos/Grafico-linea.png') }}" alt="grafico de linea" class="grafico">
+            <img src="{{ url_for('static', filename='graficos/Grafico-torta.png') }}" alt="grafico de torta" class="grafico">
+            <img src="{{ url_for('static', filename='graficos/Grafico-barras.png') }}" alt="grafico de barra" class="grafico">
+        </div>
+
+        <a class="boton-nav" href="{{ url_for('index') }}">Volver al inicio</a>
+    </div>
+{% endblock %}
