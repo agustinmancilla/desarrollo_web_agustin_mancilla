@@ -34,7 +34,7 @@
     </div>
     <div id="ventana-foto" class="ventana" style="display:none; position:fixed; inset:0;  align-items:center; justify-content:center;">
         <button id="cerrar-vent-btn" type="button" style="position:absolute; top:16px; right:16px; background:#ff5c5c; color:#fff; border:0; border-radius:50%; width:34px; height:34px; font-size:18px; cursor:pointer;">✕</button>
-        <img id="imagen-ampliada" src="" alt="" width="800" height="600">
+        <img id="imagen-ampliada" src="{{ url_for('static', filename=fotos[0].ruta_archivo) }}" alt="{{ url_for('static', filename=fotos[0].nombre_archivo) }}" width="800" height="600">
     </div>
 {% endblock %}[{% block javascript %}
     <script src="{{ url_for('static', filename='js/ventana.js') }}"></script>
