@@ -36,6 +36,26 @@
         <button id="cerrar-vent-btn" type="button" style="position:absolute; top:16px; right:16px; background:#ff5c5c; color:#fff; border:0; border-radius:50%; width:34px; height:34px; font-size:18px; cursor:pointer;">✕</button>
         <img id="imagen-ampliada" src="{{ url_for('static', filename=fotos[0].ruta_archivo) }}" alt="{{ url_for('static', filename=fotos[0].nombre_archivo) }}" width="800" height="600">
     </div>
-{% endblock %}[{% block javascript %}
+    <div id="comentarios-section" class="comentarios-section">
+        <h3>Comentarios</h3>
+        
+        <form id="comentario-form" class="nuevo-comentario">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" minlength="3" maxlength="80" required>
+            </div>
+            <div class="form-group">
+                <label for="texto">Comentario:</label>
+                <textarea id="texto" name="texto" rows="4" cols="50" minlength="5" required></textarea>
+            </div>
+            <button type="submit" class="boton-agregar">Agregar Comentario</button>
+        </form>
+        
+        <div id="comentarios-list">
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
     <script src="{{ url_for('static', filename='js/ventana.js') }}"></script>
-{% endblock %}]
+    <script src="{{ url_for('static', filename='js/comentarios.js') }}"></script>
+{% endblock %}

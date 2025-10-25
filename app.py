@@ -1,5 +1,5 @@
 import uuid
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, jsonify, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
 from database import db
 import os
@@ -7,6 +7,7 @@ from utils import validators
 from datetime import datetime, timedelta
 import hashlib
 import filetype
+from flask_cors import cross_origin
 
 UPLOAD_FOLDER = 'static/uploads'
 
@@ -91,6 +92,78 @@ def informacion_adopcion(aviso_id):
     aviso, region, comuna, contactos, fotos = db.get_aviso_por_id(aviso_id)
     return render_template('informacion-adopcion.html', aviso=aviso, region=region, comuna=comuna, contactos=contactos, fotos=fotos)
 
+@app.route('/ver-comentarios/<int:aviso_id>', methods=['GET'])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def ver_comentarios(aviso_id):
+    comentarios = db.get_comentarios_por_aviso(aviso_id)
+    data = []
+    for comentario in comentarios:
+        data.append({
+            "nombre": comentario.nombre,
+            "texto": comentario.texto,
+            "fecha": comentario.fecha.strftime('%Y-%m-%d %H:%M:%S')
+        })
+    return jsonify(data)
+    
+@app.route('/agregar-comentario', methods=['POST'])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def agregar_comentario():
+    data = request.get_json()
+    nombre = data.get('nombre', '').strip()
+    texto = data.get('texto', '').strip()
+    aviso_id = data.get('aviso_id')
+    errores = validators.validate_comentario(nombre, texto)
+    if errores:
+        return jsonify({"success": False, "errores": errores}), 400
+    
+    db.create_comentario(nombre, texto, aviso_id)
+    return jsonify({"success": True})
+
 @app.route('/estadisticas', methods=['GET'])
 def estadisticas():
     return render_template('estadisticas.html')
+
+@app.route('/estadisticas/grafico_lineas', methods=['GET'])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def estadisticas_grafico_lineas():
+    datos = db.get_avisos_por_dia()
+    data = [{
+        "date": r[0].strftime('%Y-%m-%d'),
+        "count": r[1]
+    } for r in datos]
+    return jsonify(data)
+
+@app.route('/estadisticas/grafico_torta', methods=['GET'])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def estadisticas_grafico_torta():
+    datos = db.get_avisos_por_tipo()
+    data = [{
+        "type": r[0],
+        "count": r[1]
+    } for r in datos]
+    return jsonify(data)
+
+@app.route('/estadisticas/grafico_barras', methods=['GET'])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def estadisticas_grafico_barras():
+    datos = db.get_adopciones_por_tipo_mes()
+    tipos = {}
+    meses_set = set()
+    for r in datos:
+        mes = r.mes
+        tipo = r.tipo
+        cantidad = r.cantidad
+        meses_set.add(mes)
+        tipos.setdefault(tipo, {})[mes] = cantidad
+    
+    meses = sorted(list(meses_set))
+
+    series = []
+    for tipo, cantidades in tipos.items():
+        data = [cantidades.get(mes, 0) for mes in meses]
+        series.append({
+            "name": tipo,
+            "data": data
+        })
+    return jsonify({"meses": meses,"series": series})
+   

@@ -1,7 +1,7 @@
-# Tarea 2 - Desarrollo Web
+# Tarea 3 - Desarrollo Web
 ## Descripción
-Esta tarea 2 consiste en la continuación de la tarea anterior, donde se mantiene la temática de la página, pero ahora se le ha añadido backend, es decir, la página se maneja a nivel de servidor, con el framework Flask, y mantiene información en una base de datos MySQL, la cual es trabajada con psqlalchemy, además de ahora contar con plantillas Jinja2 para HTML.
+En esta tarea 3 se extendió lo realizado en la tarea 2, donde ahora los gráficos se generan de forma asíncrona con la información proveniente de la base de datos y se agregó una sección de comentarios para los avisos de adopción, también manejada de forma asíncrona.
 
 ## Decisiones tomadas
--La funcion para validar imagenes, asignarles nombre y almacenarlas esta altamente basada en la vista en auxiliar.
--Si bien, se probó que la información se guardaba correctamente en las diferentes tablas, decidí entregar la tarea con las tablas limpias.
+-Los gráficos se realizaron con Highcharts.
+-Para manejar las llamadas asíncronas se prefirió usar fetch por mayor simplicidad.

@@ -116,3 +116,11 @@ def validate_contacto(metodo, identificador):
     if not validate_text(identificador):
         errores.append("Identificador inválido.")
     return errores
+
+def validate_comentario(nombre, texto):
+    errores =[]
+    if not nombre or len(nombre.strip()) < 3 or len(nombre) > 80:
+        errores.append("Nombre inválido.")
+    if not texto or len(texto.strip()) < 5:
+        errores.append("Comentario inválido.")
+    return errores

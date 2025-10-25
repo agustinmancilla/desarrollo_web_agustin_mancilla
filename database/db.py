@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, BigInteger, DATETIME, VARCHAR, Enum, Text
+from sqlalchemy import TIMESTAMP, create_engine, Column, Integer, String, ForeignKey, BigInteger, DATETIME, VARCHAR, Enum, Text, func
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 from datetime import datetime
 
@@ -67,6 +67,13 @@ class Contactar_Por(Base):
 
     aviso = relationship("Aviso_adopcion", back_populates="contactar_por")
 
+class Comentario(Base):
+    __tablename__ = 'comentario'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    nombre = Column(VARCHAR(80), nullable=False)
+    texto = Column(VARCHAR(300), nullable=False)
+    fecha = Column(TIMESTAMP, nullable=False)
+    aviso_id = Column(Integer, ForeignKey('aviso_adopcion.id'), nullable=False)
 
 def get_avisos(num):
     session = SessionLocal()
@@ -101,6 +108,37 @@ def get_aviso_por_id(aviso_id):
     fotos = session.query(Foto).filter_by(aviso_id=aviso.id).all()
     session.close()
     return aviso, region, comuna, contactos, fotos
+
+def get_comentarios_por_aviso(aviso_id):
+    session = SessionLocal()
+    comentarios = session.query(Comentario).filter_by(aviso_id=aviso_id).order_by(Comentario.fecha.desc()).all()
+    session.close()
+    return comentarios
+
+def get_avisos_por_dia():
+    session = SessionLocal()
+    resultado = session.query(func.date(Aviso_adopcion.fecha_ingreso).label('fecha'), func.count(Aviso_adopcion.id).label('cantidad')).group_by(func.date(Aviso_adopcion.fecha_ingreso)).order_by('fecha').all()
+    session.close()
+    return resultado
+
+def get_avisos_por_tipo():
+    session = SessionLocal()
+    resultado = session.query(Aviso_adopcion.tipo, func.count(Aviso_adopcion.id)).group_by(Aviso_adopcion.tipo).all()
+    session.close()
+    return resultado
+
+def get_adopciones_por_tipo_mes():
+    session = SessionLocal()
+    resultado = session.query(
+        func.month(Aviso_adopcion.fecha_ingreso).label('mes'),
+        Aviso_adopcion.tipo.label('tipo'),
+        func.count(Aviso_adopcion.id).label('cantidad')
+    ).group_by(
+        func.month(Aviso_adopcion.fecha_ingreso),
+        Aviso_adopcion.tipo
+    ).order_by('mes', 'tipo').all()
+    session.close()
+    return resultado
 
 def get_comuna_id(nombre):
     session = SessionLocal()
@@ -160,5 +198,17 @@ def create_contacto(nombre, identificador, aviso_id):
         identificador = identificador
     )
     session.add(nuevo_contacto)
+    session.commit()
+    session.close()
+
+def create_comentario(nombre, texto, aviso_id):
+    session = SessionLocal()
+    nuevo_comentario = Comentario(
+        nombre = nombre,
+        texto = texto,
+        fecha = datetime.now(),
+        aviso_id = aviso_id
+    )
+    session.add(nuevo_comentario)
     session.commit()
     session.close()
